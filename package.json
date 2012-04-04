@@ -1,0 +1,15 @@
+{
+  "author": "itsbth",
+  "name": "DCPU.coffee",
+  "description": "DCPU VM",
+  "version": "0.0.0",
+  "repository": {
+    "url": ""
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
