@@ -3,10 +3,16 @@
   "name": "DCPU.coffee",
   "description": "DCPU VM",
   "version": "0.0.0",
+  "bin": {
+    "dcpu.coffee": "./bin/dcpu.coffee"
+  },
+  "main": "./bin/dcpu.coffee",
   "repository": {
     "url": ""
   },
-  "dependencies": {},
+  "dependencies": {
+    "coffee-script": "1.2.0"
+  },
   "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
