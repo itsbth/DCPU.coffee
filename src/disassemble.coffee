@@ -1,4 +1,4 @@
-# From https://gist.github.com/2300590
+# Disassembler by evilpie, from https://gist.github.com/2300590
 
 hex = (n) ->
   "0x" + n.toString(16)
@@ -31,6 +31,6 @@ module.exports = (code, PC) ->
   basic_op = [ "SET", "ADD", "SUB", "MUL", "DIV", "MOD", "SHL", "SHR", "AND", "BOR", "XOR", "IFE", "IFN", "IFG", "IFB" ]
   inst = code[PC]
   if (inst & 0xf) is 0
-    "JSR " + operand(inst >> 10)  if ((inst >> 4) & 0x3f) is 0x01
+    "JSR " + operand(inst >> 10) if ((inst >> 4) & 0x3f) is 0x01
   else
     basic_op[inst & 0xf - 1] + " " + operand((inst >> 4) & 0x3f) + ", " + operand(inst >> 10)
