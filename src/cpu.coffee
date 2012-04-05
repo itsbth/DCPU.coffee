@@ -8,6 +8,24 @@ module.exports = class DCPU
   OP_SP  = 4
   OP_OV  = 5
   OP_LIT = 6
+  CYCLES = [
+    0 # INVALID
+    1 # SET
+    2 # ADD
+    2 # SUB
+    2 # MUL
+    3 # DIV
+    3 # MOD
+    2 # SHL
+    2 # SHR
+    1 # AND
+    1 # BOR
+    1 # XOR
+    2 # IFE
+    2 # IFN
+    2 # IFG
+    2 # IFB
+  ]
   constructor: (mem = new ArrayBuffer(0x10000 * 2)) ->
     @memory = new Uint16Array(mem)
     @registers = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -15,6 +33,8 @@ module.exports = class DCPU
     @sp = 0xFFFF # Stack Pointer
     @ov = 0 # Overflow
     @skip = false
+    # TODO: count cycles
+    @cycles = 0
   
   step: ->
     pcv = @memory[@pc++]
@@ -68,6 +88,7 @@ module.exports = class DCPU
         @skip = (@read(av) & @read(bv)) == 0
       else
         throw new Error("Invalid opcode #{pcv.toString(16)}")
+    @cycles += CYCLES[op]
     if res?
       if @skip
         @skip = false
