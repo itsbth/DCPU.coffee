@@ -1,3 +1,6 @@
+mod = (a, b) ->
+  ((a % b) + b) % b
+
 module.exports = class DCPU
   OP_REG = 1
   OP_MEM = 2
@@ -44,7 +47,7 @@ module.exports = class DCPU
         res = if abv then @read(av) / abv else 0
       when 0x6
         abv = @read(bv)
-        res = if abv then @read(av) % abv else 0
+        res = if abv then mod(@read(av), abv) else 0
       when 0x7
         res = @read(av) << @read(bv)
       when 0x8
@@ -120,10 +123,10 @@ module.exports = class DCPU
       when OP_MEM
         @memory[val] = value
       when OP_REG
-        @registers[val] = value
+        @registers[val] = mod(value, 0xFFFF)
       when OP_PC
-        @pc = value
+        @pc = mod(value, 0xFFFF)
       when OP_SP
-        @sp = value
+        @sp = mod(value, 0xFFFF)
       when OP_OV
-        @ov = value
+        @ov = mod(value, 0xFFFF)
